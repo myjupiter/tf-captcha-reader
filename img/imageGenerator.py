@@ -17,7 +17,8 @@ def buildDic(arr):
 
 randint = np.random.randint
 
-CHAR_POOL = list(range(97, 123)) + list(range(65, 91)) + list(range(48, 58))
+# CHAR_POOL = list(range(97, 123)) + list(range(65, 91)) + list(range(48, 58))
+CHAR_POOL = list(range(48, 55)) + list(range(56, 58))
 CHAR_DIC, CHAR_INDEX_DIC = buildDic(CHAR_POOL)
 IMAGE_SIZE = (160, 36)
 TEXT_IMAGE_SIZE = (28, 28)
