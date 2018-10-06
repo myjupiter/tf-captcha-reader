@@ -161,17 +161,18 @@ def _all_simple_paths_graph(DG, cutoff, item, memorizedPaths, filepaths):
     main()
 
 if __name__ == '__main__':
-    m = mp.Manager()
-    memorizedPaths = m.dict()
-    filepaths = m.dict()
-    cutoff = 1 ##
-    # use all available CPUs
-    p = mp.Pool(initializer=init_worker, initargs=(memorizedPaths,
-                                                   filepaths,
-                                                   cutoff))
+    main()
+    # m = mp.Manager()
+    # memorizedPaths = m.dict()
+    # filepaths = m.dict()
+    # cutoff = 1 ##
+    # # use all available CPUs
+    # p = mp.Pool(initializer=init_worker, initargs=(memorizedPaths,
+    #                                                filepaths,
+    #                                                cutoff))
+    # # degreelist = range(100000)
     # degreelist = range(100000)
-    degreelist = range(100000)
-    for _ in p.imap_unordered(work, degreelist, chunksize=500):
-        pass
-    p.close()
-    p.join()
+    # for _ in p.imap_unordered(work, degreelist, chunksize=500):
+    #     pass
+    # p.close()
+    # p.join()
