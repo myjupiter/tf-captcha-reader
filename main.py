@@ -150,7 +150,7 @@ def init_worker(mps, fps, cut):
     global memorizedPaths, filepaths, cutoff
     global DG
 
-    print "process initializing %s" % mp.current_process()
+    print "process initializing", mp.current_process()
     memorizedPaths, filepaths, cutoff = mps, fps, cut
     DG = 1##nx.read_gml("KeggComplete.gml", relabel = True)
 
