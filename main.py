@@ -14,6 +14,10 @@ from PIL import Image
 from img.imageGenerator import createImg, TEXT_IMAGE_SIZE, CHAR_POOL, CHAR_INDEX_DIC, CHAR_DIC
 from img.imageGrouping import imageSplit
 
+import threading
+from threading import Thread
+import multiprocessing as mp
+
 def rgb2int(arr):
   '''
   convert rgb color array to int
@@ -141,5 +145,33 @@ def main():
       data.append(char)
     print(data)
 
+
+def init_worker(mps, fps, cut):
+    global memorizedPaths, filepaths, cutoff
+    global DG
+
+    print "process initializing", mp.current_process()
+    memorizedPaths, filepaths, cutoff = mps, fps, cut
+    DG = 1##nx.read_gml("KeggComplete.gml", relabel = True)
+
+def work(item):
+    _all_simple_paths_graph(DG, cutoff, item, memorizedPaths, filepaths)
+
+def _all_simple_paths_graph(DG, cutoff, item, memorizedPaths, filepaths):
+    main()
+
 if __name__ == '__main__':
-  main()
+    m = mp.Manager()
+    memorizedPaths = m.dict()
+    filepaths = m.dict()
+    cutoff = 1 ##
+    # use all available CPUs
+    p = mp.Pool(initializer=init_worker, initargs=(memorizedPaths,
+                                                   filepaths,
+                                                   cutoff))
+    # degreelist = range(100000)
+    degreelist = range(100000)
+    for _ in p.imap_unordered(work, degreelist, chunksize=500):
+        pass
+    p.close()
+    p.join()
